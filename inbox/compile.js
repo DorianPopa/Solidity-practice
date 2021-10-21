@@ -7,4 +7,4 @@ const inboxPath = path.resolve(
 );
 const source = fs.readFileSync(inboxPath, 'utf-8');
 
-module.exports = solc.compile(source, 1).contracts['Inbox'];
+module.exports = solc.compile(source, 1).contracts[':Inbox'];;
