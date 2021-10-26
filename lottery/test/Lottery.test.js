@@ -69,4 +69,50 @@ describe("Lottery Contract", () => {
 			assert(err);
 		}
 	});
+
+	// Needs checking
+	it("only manager can call pickWinner", async () => {
+		// Need to have at least 1 player in order to select a winner
+		await lottery.methods.enter().send({
+			from: accounts[0],
+			value: web3.utils.toWei("0.02", "ether"),
+		});
+
+		try {
+			await lottery.methods.pickWinner().send({
+				from: accounts[1],
+			});
+			assert(false);
+		} catch (err) {
+			assert(err);
+		}
+	});
+
+	it("sends money to the winner and resets the players array", async () => {
+		await lottery.methods.enter().send({
+			from: accounts[0],
+			value: web3.utils.toWei("2", "ether"),
+		});
+
+		// Check if the winner gets the prize
+		const initialBalance = await web3.eth.getBalance(accounts[0]);
+		await lottery.methods.pickWinner().send({
+			from: accounts[0],
+		});
+		const finalBalance = await web3.eth.getBalance(accounts[0]);
+		const difference = finalBalance - initialBalance;
+		assert(difference > web3.utils.toWei("1.8", "ether")); // 1.8 is to cover the pickWinner transaction gas cost
+
+		// Check if the lottery balance is empty
+		const lotteryBalance = await web3.eth.getBalance(
+			lottery.options.address
+		);
+		assert.strictEqual(lotteryBalance, "0");
+
+		// Check if the players array is empty
+		const players = await lottery.methods.getPlayers().call({
+			from: accounts[0],
+		});
+		assert.strictEqual(players.length, 0);
+	});
 });
