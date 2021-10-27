@@ -2,4 +2,7 @@
 
 Repository used for various solidity / web3 related practice projects
 
-Will start with Web3 but I will eventually rewrite everything with Ethers
+TODO:
+- Check lottery tests that are marked as questionable
+- rewrite everything with Ethers after finishing the Udemy course
+- 
