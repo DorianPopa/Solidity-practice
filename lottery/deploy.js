@@ -8,10 +8,7 @@ const {
 	INFURA_ENDPOINT_KOVAN,
 } = require("./config/config");
 
-provider = new HDWalletProvider(
-	TEST_ACCOUNT_MNEMONIC, 
-	INFURA_ENDPOINT_KOVAN
-);
+provider = new HDWalletProvider(TEST_ACCOUNT_MNEMONIC, INFURA_ENDPOINT_KOVAN);
 
 const web3 = new Web3(provider);
 
@@ -24,6 +21,7 @@ const deploy = async () => {
 		.deploy({ data: evm.bytecode.object })
 		.send({ gas: "1000000", from: accounts[0] });
 
+	console.log(JSON.stringify(abi));
 	console.log("Contract deployed to", result.options.address);
 	provider.engine.stop();
 };

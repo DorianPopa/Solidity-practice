@@ -8,10 +8,7 @@ const {
 	INFURA_ENDPOINT_KOVAN,
 } = require("./config/config");
 
-provider = new HDWalletProvider(
-	TEST_ACCOUNT_MNEMONIC, 
-	INFURA_ENDPOINT_KOVAN
-);
+provider = new HDWalletProvider(TEST_ACCOUNT_MNEMONIC, INFURA_ENDPOINT_KOVAN);
 
 const web3 = new Web3(provider);
 
