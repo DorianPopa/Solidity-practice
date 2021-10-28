@@ -70,7 +70,7 @@ describe("Lottery Contract", () => {
 		}
 	});
 
-	// Needs checking
+	// Needs checking   assert.throws(fn[, error][, message])
 	it("only manager can call pickWinner", async () => {
 		// Need to have at least 1 player in order to select a winner
 		await lottery.methods.enter().send({

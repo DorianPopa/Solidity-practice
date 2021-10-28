@@ -1,1 +1,0 @@
-.send({ gas: '1000000', gasPrice: '5000000000', from: accounts[0] });
