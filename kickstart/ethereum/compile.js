@@ -6,9 +6,11 @@ const fs = require("fs-extra");
 
 const buildPath = path.resolve(__dirname, "build");
 fs.removeSync(buildPath);
+console.log("Removed:", buildPath);
 
 const contractPath = path.resolve(__dirname, "contracts");
 const fileNames = fs.readdirSync(contractPath);
+console.log(`Found ${fileNames.length} source files:`, fileNames);
 
 // ****************** Compiler config + result *************************
 // The desired input format is like this
@@ -48,18 +50,19 @@ const compilerInput = {
 	},
 };
 
+console.log("Finished building the compiler config object");
 const compiled = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
-
+console.log("Compilation finished");
 // ****************** Compiler output handling *************************
 
 fs.ensureDirSync(buildPath);
+console.log("Directory created:", buildPath);
 
 fileNames.forEach((fileName) => {
 	const contracts = Object.keys(compiled.contracts[fileName]);
 	contracts.forEach((contract) => {
-		fs.outputJSONSync(
-			path.resolve(buildPath, contract + ".json"),
-			compiled.contracts[fileName][contract]
-		);
+		const contractPath = path.resolve(buildPath, contract + ".json");
+		console.log("Writing file: ", contractPath);
+		fs.outputJSONSync(contractPath, compiled.contracts[fileName][contract]);
 	});
 });
