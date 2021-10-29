@@ -2,7 +2,7 @@ const path = require("path");
 const solc = require("solc");
 const fs = require("fs-extra");
 
-// ********************************************************************
+// ********************* Path building and cleanup *********************
 
 const buildPath = path.resolve(__dirname, "build");
 fs.removeSync(buildPath);
@@ -10,7 +10,7 @@ fs.removeSync(buildPath);
 const contractPath = path.resolve(__dirname, "contracts");
 const fileNames = fs.readdirSync(contractPath);
 
-// ********************************************************************
+// ****************** Compiler config + result *************************
 // The desired input format is like this
 // const input = {
 // 	language: "Solidity",
@@ -50,7 +50,7 @@ const compilerInput = {
 
 const compiled = JSON.parse(solc.compile(JSON.stringify(compilerInput)));
 
-// ********************************************************************
+// ****************** Compiler output handling *************************
 
 fs.ensureDirSync(buildPath);
 
