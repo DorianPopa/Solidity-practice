@@ -10,7 +10,7 @@ const ContributeForm = (props) => {
 	const [state, setState] = useState({
 		value: "",
 		loading: false,
-		message: "",
+		errorMessage: "",
 	});
 
 	const onChangeInputValue = (e) => {
@@ -25,7 +25,7 @@ const ContributeForm = (props) => {
 		e.preventDefault();
 		let value = web3.utils.toWei(state.value, "ether");
 
-		setState((prev) => ({ ...prev, loading: true, message: "" }));
+		setState((prev) => ({ ...prev, loading: true, errorMessage: "" }));
 
 		const campaign = Campaign(props.address);
 
@@ -37,14 +37,14 @@ const ContributeForm = (props) => {
 			});
 			router.replace(`/campaigns/${props.address}`);
 		} catch (err) {
-			setState((prev) => ({ ...prev, message: err.message }));
+			setState((prev) => ({ ...prev, errorMessage: err.message }));
 		}
 
-		setState((prev) => ({ ...prev, loading: false }));
+		setState((prev) => ({ ...prev, loading: false, value: "" }));
 	};
 
 	return (
-		<Form onSubmit={onSubmitForm} error={state.message.length !== 0}>
+		<Form onSubmit={onSubmitForm} error={state.errorMessage.length !== 0}>
 			<Form.Field>
 				<label>Amount to Contribute</label>
 				<Input
@@ -56,8 +56,8 @@ const ContributeForm = (props) => {
 			</Form.Field>
 			<Message
 				error
-				header="There was a problem with your submission"
-				content={state.message}
+				header="There was a problem - your transaction was not processed"
+				content={state.errorMessage}
 			/>
 			<Button primary type="submit" loading={state.loading}>
 				Contribute!
