@@ -27,7 +27,13 @@ const RequestsIndex = (props) => {
 			<h3>Request List</h3>
 			<Link href={`/campaigns/${props.address}/requests/new`}>
 				<a>
-					<Button primary>Add Request</Button>
+					<Button
+						primary
+						floated="right"
+						style={{ marginBottom: "10px" }}
+					>
+						Add Request
+					</Button>
 				</a>
 			</Link>
 			<Table>
