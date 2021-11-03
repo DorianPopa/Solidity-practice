@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-
+import { useRouter } from "next/router";
 import { Button, Form, Input, Message } from "semantic-ui-react";
 
 import web3 from "../ethereum/web3";
 import Campaign from "../ethereum/campaign";
 
 const ContributeForm = (props) => {
+	const router = useRouter();
 	const [state, setState] = useState({
 		value: "",
 		loading: false,
@@ -19,6 +20,8 @@ const ContributeForm = (props) => {
 	};
 
 	const onSubmitForm = async (e) => {
+		console.log(props);
+
 		e.preventDefault();
 		let value = web3.utils.toWei(state.value, "ether");
 
@@ -32,6 +35,7 @@ const ContributeForm = (props) => {
 				from: accounts[0],
 				value: value,
 			});
+			router.replace(`/campaigns/${props.address}`);
 		} catch (err) {
 			setState((prev) => ({ ...prev, message: err.message }));
 		}
