@@ -11,7 +11,7 @@ import styles from "../../../styles/ViewCampaign.module.css";
 import ContributeForm from "../../../components/ContributeForm";
 
 type ViewCampaignPageProps = {
-	address: string | string[];
+	address: string;
 	minimumContribution: string;
 	balance: string;
 	requestsCount: string;
@@ -90,7 +90,7 @@ const ViewCampaignPage: NextPage<ViewCampaignPageProps> = ({
 };
 
 ViewCampaignPage.getInitialProps = async (props) => {
-	const address = props.query.address ?? "";
+	const address = props.query.address?.toString() ?? "";
 
 	const campaign = Campaign(address);
 	const summary = await campaign.getSummary();

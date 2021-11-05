@@ -13,8 +13,8 @@ type CampaignsProps = {
 
 const Campaigns: NextPage<CampaignsProps> = ({ campaigns }) => {
 	const renderCampaigns = () => {
-		return campaigns.map((address) => {
-			return <CampaignListItem address={address} />;
+		return campaigns.map((address, index) => {
+			return <CampaignListItem address={address} key={index} />;
 		});
 	};
 

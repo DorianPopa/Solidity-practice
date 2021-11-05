@@ -1,8 +1,7 @@
 import connector from './connector';
 import { CAMPAIGN_FACTORY_ADDRESS } from '../config/config';
 import compiledFactory from '../ethereum/build/CampaignFactory.json';
-
-const ethers = require('ethers');
+import { ethers } from 'ethers';
 
 let providerOrSigner = connector.signer ?? connector.provider;
 

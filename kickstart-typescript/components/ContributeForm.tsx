@@ -6,7 +6,7 @@ import Campaign from "../ethereum/campaign";
 import { ethers, utils } from "ethers";
 
 type ContributeFromProps = {
-	address: string | string[];
+	address: string;
 };
 
 const ContributeForm: React.FC<ContributeFromProps> = ({ address }) => {

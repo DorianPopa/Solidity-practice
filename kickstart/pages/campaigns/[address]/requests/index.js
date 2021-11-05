@@ -68,6 +68,7 @@ RequestsIndex.getInitialProps = async (props) => {
 				return campaign.methods.requests(index).call();
 			})
 	);
+	console.log(requests);
 	return { address, approversCount, requests, requestsCount };
 };
 
